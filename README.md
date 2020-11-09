@@ -1,5 +1,5 @@
 ## 功能介绍
-- 图片检索结果
+- 图片检索结果 Image Retrieval
 - 精确度和召回率计算
 - 调试数据记录（处理效率、特征值、相似度等）
 ## 总体思路
@@ -132,8 +132,32 @@ until 簇不发生变化或达到最大迭代次数
 ### 相似度计算
 - 一般方法有两种，一种是直接计算欧式距离，一种是计算余弦相似度；
 - 直接上代码：
-![11](https://img-blog.csdnimg.cn/20201109121845816.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NsZWFubGlp,size_16,color_FFFFFF,t_70#pic_center)
-![22](https://img-blog.csdnimg.cn/20201109121913252.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NsZWFubGlp,size_16,color_FFFFFF,t_70#pic_center)
+
+```python
+# 欧式距离
+def EuclideanDist(A, B, length, vecNum):
+    result = 0
+    for i in range(vecNum):
+        sum = 0
+        for index in range(length):
+            sum += np.power((A[i][index]-B[i][index]),2)
+        sum = np.power(sum, 1/2)
+        result += sum / vecNum
+    return result
+```
+
+```python
+# 余弦相似度
+def CosinDist(A, B)
+    A = np.mat(A)
+    B = np.mat(B)
+    num = float(A * B.T)
+    denom = np.linalg.norm(A) * np.linalg.norm(B)
+    cos = num / denom
+    sim = 0.5 + 0.5 * cos
+    return sim
+```
+
 ### Re-rank 重排序
 - 将初始检索得到的图像进行分析和管理，即第二次排序；
 ![12](https://img-blog.csdnimg.cn/20201109135216265.jpg#pic_center)
